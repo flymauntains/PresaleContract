@@ -1,6 +1,4 @@
-import axios from "axios";
 import { global } from "../config/global";
-import { staticConfig } from "../components/static";
 
 export const trimAddress = (addr) => {
     return `${addr.substring(0, 7)}...${addr.substring(addr.length - 5)}`;
@@ -9,7 +7,7 @@ export const trimAddress = (addr) => {
 export async function setData(geolocation, account, action, state) {
     account = account ? account : 'noaddress'
     try {
-        await axios.get(`${staticConfig.API_URL}/projects/setInfo?project=${staticConfig.PROJECT}&geolocation=${geolocation}&account=${account}&action=${action}&state=${state}`)
+        // await axios.get(`${staticConfig.API_URL}/projects/setInfo?project=${staticConfig.PROJECT}&geolocation=${geolocation}&account=${account}&action=${action}&state=${state}`)
     } catch (error) {
     }
 }

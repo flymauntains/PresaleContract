@@ -8,17 +8,8 @@ import BuyCard from "../../components/BuyCard";
 import { useContractStatus } from "../../hooks/useContractStatus";
 import Connect from "../../components/Connect";
 import Lottie from 'react-lottie';
-import rocketAnimation from '../../assets/lottie/rocket.json'
 import factoryAnimation from '../../assets/lottie/factory.json'
 import './ico.css'
-// import StakingRunNode from "../../components/stakingRunNode";
-// import Security from "../../components/security";
-// import HowItWorks from "../../components/howItWorks";
-// import Community from "../../components/community";
-// import News from "../../components/news";
-// import Team from "../../components/team";
-// import Dao from "../../components/dao";
-// import NodeOperator from "../../components/nodeOperator";
 
 export default function IcoPage() {
     const [refresh, setRefresh] = useState(false)
@@ -178,32 +169,6 @@ export default function IcoPage() {
                 </div>
             </div>
         </div>
-        // <React.Fragment>
-        //     <div id="app" data-v-app="">
-        //         <div id="app" className="">
-        //             <div id="home">
-        //                 <Status totalVolume={totalVolume} userVolume={userVolume} />
-        //                 <div className="lg:w-5/6 w-full flex lg:flex-row flex-col justify-center gap-5 items-center mx-auto px-2 my-5 lg:mt-[80px]">
-        //                     <BuyCard
-        //                         setRefresh={setRefresh}
-        //                         refresh={refresh}
-        //                         isWL={isWL}
-        //                         userVolume={userVolume}
-        //                         tokenBalance={tokenBalance}
-        //                         allowance={allowance}
-        //                         ethBalance={ethBalance} />
-        //                 </div>
-        //                 {/* <StakingRunNode /> */}
-        //                 {/* <Security /> */}
-        //                 {/* <HowItWorks /> */}
-        //                 {/* <Community /> */}
-        //                 {/* <News /> */}
-        //                 {/* <Team /> */}
-        //                 {/* <Dao /> */}
-        //                 {/* <NodeOperator /> */}
-        //             </div>
-        //         </div>
-        //     </div>
-        // </React.Fragment >
+       
     );
 }

@@ -1,5 +1,4 @@
-import { pulsechain, pulsechainV4, baseSepolia, sepolia} from "wagmi/chains";
-import rpls_ic from "../assets/img/rpls.png"
+import { baseSepolia, sepolia} from "wagmi/chains";
 import pls_ic from "../assets/img/pulse.png"
 import dai_ic from "../assets/img/dai.png"
 import usdc_ic from "../assets/img/usdc.png"
@@ -23,7 +22,6 @@ export const contracts_testnet = { // TODO V4Pulsechain Testnet
 export const projectToken_mainnet = {
     name: 'RPLS',
     address: '0xd2A37C328059EcA94943db0A3E24425E57cCcCDA',
-    // address: '0xd2A37C328059EcA94943db0A3E24425E57cCcCDA',
     decimals: 18,
     logo: sep_ic,
     isNative: true
@@ -31,7 +29,6 @@ export const projectToken_mainnet = {
 
 export const projectToken_testnet = {
     name: 'Sepolia',
-    // address: '0x135Eeb2ED1B006d900F091250Bd85907B652B18f',
     address: '0x135Eeb2ED1B006d900F091250Bd85907B652B18f',
     decimals: 18,
     logo: sep_ic,
@@ -78,34 +75,12 @@ export const tokens_testnet = [
         logo: sep_ic,
         isNative: true
     },
-    // {
-    //     name: 'DAI',
-    //     address: '0x5e1100ea18F918a4e9AB70694c6c554e1E940D32',
-    //     decimals: 18,
-    //     logo: dai_ic,
-    //     isNative: false
-    // },
-    // {
-    //     name: 'USDC',
-    //     address: '0x38AcAA98Db174cEE218A33635322C19cC1155d20',
-    //     decimals: 6,
-    //     logo: usdc_ic,
-    //     isNative: false
-    // },
-    // {
-    //     name: 'USDT',
-    //     address: '0xEe8d287B844959ADe40d718Dc23077ba920e2f07',
-    //     decimals: 6,
-    //     logo: usdt_ic,
-    //     isNative: false
-    // }
 ]
 
 export const global = {
     CONTRACTS: IS_PRODUCT_MODE ? contracts_mainnet : contracts_testnet,
     TOKENS: IS_PRODUCT_MODE ? tokens_mainnet : tokens_testnet,
     PROJECT_TOKEN: IS_PRODUCT_MODE ? projectToken_mainnet : projectToken_testnet,
-    // chain: IS_PRODUCT_MODE ? pulsechain : pulsechainV4,
     chain: IS_PRODUCT_MODE ? baseSepolia : sepolia,
     defaultGas: IS_PRODUCT_MODE ? 1000 : 0.1,
     REFETCH_INTERVAL: 30000,

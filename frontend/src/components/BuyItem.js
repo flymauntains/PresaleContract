@@ -7,14 +7,9 @@ import { faArrowCircleDown, faChevronDown, faSpinner } from "@fortawesome/free-s
 import { toast } from "react-toastify";
 import { formatUnits, parseUnits } from "viem";
 import { global } from "../config/global";
-import contractABI from '../assets/abi/ico.json'
-import erc20ABI from '../assets/abi/token.json'
 import TokenSelectModal from "./TokenSelectModal";
 import { useAmount } from "../hooks/useAmount";
-import { staticConfig } from "./static";
-import mintABI from '../assets/abi/mintToken.json'
 import PresaleContractABI from "../assets/abi/PresaleComplete.json"
-import assert from "assert";
 
 export default function BuyItem(props) {
     const [token, setToken] = useState({
@@ -42,7 +37,7 @@ export default function BuyItem(props) {
     const [outTokenAmount, setOutTokenAmount] = useState('')
     const [activeBox, setActiveBox] = useState('INPUT')
 
-    const { contract, payAmountOut, tokenAmountOut } = useAmount(token, payTokenAmount, outTokenAmount, props.currentTokenPrice)
+    const { payAmountOut, tokenAmountOut } = useAmount(token, payTokenAmount, outTokenAmount, props.currentTokenPrice)
 
     useEffect(() => {
         if (activeBox === 'INPUT') {
@@ -137,78 +132,16 @@ export default function BuyItem(props) {
         if (tokenAmountOut !== null) {
             setPending(true)
             try {
-                // const feeData = await fetchFeeData()
-
                 let data = {
                     chainId: chain.id,
                     __mode: 'prepared',
                     abi: PresaleContractABI,
                     address: "0x58C02D30Fb971844Bf6993455Ddd0ddd27f7C598",
                     functionName: 'buyToken',
-                    // args: ["100000000000000000000"],
-                    // args: [parseUnits(tokenAmountOut, global.PROJECT_TOKEN.decimals)],
                     args: [parseUnits(outTokenAmount, global.PROJECT_TOKEN.decimals)],
                     value: parseUnits(payTokenAmount, token.decimals)
                     // gasPrice: feeData.gasPrice ? feeData.gasPrice : undefined,
                 }
-                // if (btnMsg === 'ENABLE') {
-                //     data = {
-                //         ...data,
-                //         address: token.address,
-                //         abi: erc20ABI,
-                //     }
-                //     try {
-                //         data = {
-                //             ...data,
-                //             functionName: 'increaseAllowance',
-                //             args: [contract, staticConfig.MAX_UINT256_HALF],
-                //         }
-                //         // const incApproveData = 
-                //         await prepareWriteContract(data)
-                //     } catch (error) {
-                //         data = {
-                //             ...data,
-                //             functionName: 'approve',
-                //             args: [contract, staticConfig.MAX_UINT256],
-                //         }
-                //     }
-                // } else {
-                //     data = {
-                //         ...data,
-                //         address: contract,
-                //         abi: PresaleContractABI,
-                //     }
-                //     if (token.isNative) {
-                //         if (activeBox === 'INPUT') {
-                //             data = {
-                //                 ...data,
-                //                 functionName: 'buyToken',
-                //                 value: parseUnits(buyTokenAmount, token.decimals)
-                //             }
-                //         } else {
-                //             data = {
-                //                 ...data,
-                //                 functionName: 'buyTokenExactOutWithPLS',
-                //                 args: [parseUnits(outTokenAmount, global.PROJECT_TOKEN.decimals)],
-                //                 value: parseUnits(buyTokenAmount, token.decimals)
-                //             }
-                //         }
-                //     } else {
-                //         if (activeBox === 'INPUT') {
-                //             data = {
-                //                 ...data,
-                //                 functionName: 'buyTokenExactIn',
-                //                 args: [token.address, parseUnits(buyTokenAmount, token.decimals)],
-                //             }
-                //         } else {
-                //             data = {
-                //                 ...data,
-                //                 functionName: 'buyTokenExactOut',
-                //                 args: [token.address, parseUnits(outTokenAmount, global.PROJECT_TOKEN.decimals)],
-                //             }
-                //         }
-                //     }
-                // }
 
                 const preparedData = await prepareWriteContract(data)
 

@@ -6,7 +6,6 @@ import { formatUnits, parseUnits } from "viem";
 
 export function useAmount(token, payAmount, tokenAmount, curTokenPrice) {
     const [data, setData] = useState({
-        // contract: global.CONTRACTS.Main,
         contract: "0x58C02D30Fb971844Bf6993455Ddd0ddd27f7C598",
         payAmountOut: 0,
         tokenAmountOut: 0,
@@ -56,11 +55,7 @@ export function useAmount(token, payAmount, tokenAmount, curTokenPrice) {
                 setData({
                     contract,
                     payAmountOut: _data[0].status === "success" ? formatUnits(_data[0].result, token.decimals) : '0',
-                    // tokenAmountOut: Math.floor(payAmount/0.000001)
                     tokenAmountOut: (payAmount/0.000001).toString(),
-                    
-                    //  payAmountOut: _data[0].status === "success" ? formatUnits(_data[0].result, token.decimals) : '0',
-                // tokenAmountOut: curTokenPrice && _data[1].status === "success" ? (payAmount/0.000001).toString() : '0',
                 })
             } catch (error) {
                 console.log('useAmount err', error)

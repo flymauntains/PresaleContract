@@ -22,13 +22,11 @@ export default function BuyCard(props) {
                     abi: PresaleContractABI,
                     functionName: 'startSaleDate'
                 });
-                console.log("fly_startDate_card", startDate)
                 const endDate = await readContract({
                     address: "0x9e499f31906674fE5091067Fa83ccbe2851038Aa",
                     abi: PresaleContractABI,
                     functionName: 'endSaleDate'
                 });
-                console.log("fly_endSaleDate-_card", endDate)
                 setStartSaleDate(startDate);
                 setEndSaleDate(endDate);
             } catch (error) {
@@ -43,7 +41,6 @@ export default function BuyCard(props) {
       const timerID = setInterval(() => {
           const now = Math.round(Date.now() / 1000);
           setCurTime(now);
-          console.log("fly_curTime_card", now)
       }, 1000);
 
       return () => {
@@ -73,29 +70,6 @@ export default function BuyCard(props) {
         // eslint-disable-next-line
     }, [props.nextRoundStartTime]);
 
-    // useEffect(() => {
-    //   const endSaleDate = new Date('2024-12-31T23:59:59Z');
-      // setIcoStatusDetail(`Presale ends at ${endSaleDate.toLocaleString()}`);
-    // }, []);
-
-    // useEffect(() => {
-    //     if (Number(endSaleDate) >= curTime >= Number(startSaleDate)) {
-    //         setIcoStatusTitle(`Presale now!!!`)
-    //         setIcoStatusDetail(`Presale ends at ${new Date(Number(endSaleDate * 1000)).toLocaleString()}`)
-    //     } else if (curTime < Number(startSaleDate)) {
-    //         setIcoStatusTitle(`Presale is not started yet!`)
-    //         setIcoStatusDetail(`Presale starts at ${new Date(Number(startSaleDate * 1000)).toLocaleString()}.`)
-    //     } 
-    //     else if (curTime >= Number(endSaleDate)) {
-    //       console.log("fly_curTime_error", curTime)
-    //       console.log("fly_endsaledate_error", Number(endSaleDate))
-    //         setIcoStatusTitle(`Presale ended!`)
-    //         setIcoStatusDetail(`Presale ended at ${new Date(Number(endSaleDate * 1000)).toLocaleString()}`)}
-    //     // else {
-    //     //     setIcoStatusTitle(`Presale ended!`)
-    //     //     setIcoStatusDetail(`Presale ended at ${new Date(Number(endSaleDate * 1000)).toLocaleString()}`)
-    //     // }
-    // }, [timer, curTime, startSaleDate, endSaleDate])
 
     useEffect(() => {
       if (Number(endSaleDate) >= curTime && curTime >= Number(startSaleDate)) {
@@ -106,12 +80,7 @@ export default function BuyCard(props) {
         setIcoStatusTitle("Presale is not started yet!");
         setIcoStatusDetail(`Presale starts at ${new Date(Number(startSaleDate * 1000)).toLocaleString()}.`);
       }
-        // } else if (curTime >= Number(endSaleDate)) {
-      //   console.log("fly_curTime_error", curTime);
-      //   console.log("fly_endsaledate_error", Number(endSaleDate));
-      //   setIcoStatusTitle("Presale ended!");
-      //   setIcoStatusDetail(`Presale ended at ${new Date(Number(endSaleDate * 1000)).toLocaleString()}`);
-      // }
+ 
     }, [timer, curTime, startSaleDate, endSaleDate]);
     
 

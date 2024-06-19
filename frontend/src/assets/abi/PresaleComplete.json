@@ -7,6 +7,16 @@
 				"type": "address"
 			},
 			{
+				"internalType": "address",
+				"name": "_usdt",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_ethPriceFeed",
+				"type": "address"
+			},
+			{
 				"internalType": "uint256",
 				"name": "_price_num",
 				"type": "uint256"
@@ -36,6 +46,11 @@
 				"internalType": "uint256",
 				"name": "buyTokenAmount",
 				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "payWithEther",
+				"type": "bool"
 			}
 		],
 		"name": "buyToken",
@@ -45,7 +60,33 @@
 	},
 	{
 		"inputs": [],
+		"name": "claimTokens",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "endSaleDate",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "contract AggregatorV3Interface",
+				"name": "priceFeed",
+				"type": "address"
+			}
+		],
+		"name": "getLatestPrice",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -85,6 +126,19 @@
 	{
 		"inputs": [],
 		"name": "getTokenSold",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getUsdtBalance",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -223,8 +277,14 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "tokenBalance",
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "tokensPurchased",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -243,6 +303,38 @@
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "tokensSoldPerUser",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "usdt",
+		"outputs": [
+			{
+				"internalType": "contract IERC20",
+				"name": "",
+				"type": "address"
 			}
 		],
 		"stateMutability": "view",

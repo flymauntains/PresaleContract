@@ -2,18 +2,61 @@ import { global } from "../config/global";
 import BuyItem from "./BuyItem";
 import { useEffect, useState } from "react";
 import { displayRemainTime, ICO_BEFORE, ICO_NOW, ICO_AFTER } from "../utils/utils";
+import PresaleContractABI from "../assets/abi/PresaleComplete.json";
+import { readContract } from "@wagmi/core";
+
 
 export default function BuyCard(props) {
     const [icoStatus, setIcoStatus] = useState(ICO_NOW)
     const [icoStatusTitle, setIcoStatusTitle] = useState(``)
     const [icoStatusDetail, setIcoStatusDetail] = useState(``)
+    const [startSaleDate, setStartSaleDate] = useState(null);
+    const [endSaleDate, setEndSaleDate] = useState(null);
+    const [curTime, setCurTime] = useState(false);
 
     useEffect(() => {
-        if (props.totalSoldAmount >= global.totalVolume) setIcoStatus(ICO_AFTER)
-        else if (props.roundNumber < 1) setIcoStatus(ICO_BEFORE)
-        else if (props.roundNumber < 25) setIcoStatus(ICO_NOW)
-        else setIcoStatus(ICO_AFTER)
-    }, [props.roundNumber, props.totalSoldAmount])
+        async function fetchSaleDates() {
+            try {
+                const startDate = await readContract({
+                    address: "0x9e499f31906674fE5091067Fa83ccbe2851038Aa",
+                    abi: PresaleContractABI,
+                    functionName: 'startSaleDate'
+                });
+                console.log("fly_startDate_card", startDate)
+                const endDate = await readContract({
+                    address: "0x9e499f31906674fE5091067Fa83ccbe2851038Aa",
+                    abi: PresaleContractABI,
+                    functionName: 'endSaleDate'
+                });
+                console.log("fly_endSaleDate-_card", endDate)
+                setStartSaleDate(startDate);
+                setEndSaleDate(endDate);
+            } catch (error) {
+                console.error("Error fetching sale dates:", error);
+            }
+        }
+
+        fetchSaleDates();
+    }, []);
+
+    useEffect(() => {
+      const timerID = setInterval(() => {
+          const now = Math.round(Date.now() / 1000);
+          setCurTime(now);
+          console.log("fly_curTime_card", now)
+      }, 1000);
+
+      return () => {
+          clearInterval(timerID);
+      };
+      // eslint-disable-next-line
+  }, []);
+    // useEffect(() => {
+    //     if (props.totalSoldAmount >= global.totalVolume) setIcoStatus(ICO_AFTER)
+    //     else if (props.roundNumber < 1) setIcoStatus(ICO_BEFORE)
+    //     else if (props.roundNumber < 25) setIcoStatus(ICO_NOW)
+    //     else setIcoStatus(ICO_AFTER)
+    // }, [props.roundNumber, props.totalSoldAmount])
 
     const [timer, setTimer] = useState(0)
 
@@ -30,21 +73,47 @@ export default function BuyCard(props) {
         // eslint-disable-next-line
     }, [props.nextRoundStartTime]);
 
+    // useEffect(() => {
+    //   const endSaleDate = new Date('2024-12-31T23:59:59Z');
+      // setIcoStatusDetail(`Presale ends at ${endSaleDate.toLocaleString()}`);
+    // }, []);
+
+    // useEffect(() => {
+    //     if (Number(endSaleDate) >= curTime >= Number(startSaleDate)) {
+    //         setIcoStatusTitle(`Presale now!!!`)
+    //         setIcoStatusDetail(`Presale ends at ${new Date(Number(endSaleDate * 1000)).toLocaleString()}`)
+    //     } else if (curTime < Number(startSaleDate)) {
+    //         setIcoStatusTitle(`Presale is not started yet!`)
+    //         setIcoStatusDetail(`Presale starts at ${new Date(Number(startSaleDate * 1000)).toLocaleString()}.`)
+    //     } 
+    //     else if (curTime >= Number(endSaleDate)) {
+    //       console.log("fly_curTime_error", curTime)
+    //       console.log("fly_endsaledate_error", Number(endSaleDate))
+    //         setIcoStatusTitle(`Presale ended!`)
+    //         setIcoStatusDetail(`Presale ended at ${new Date(Number(endSaleDate * 1000)).toLocaleString()}`)}
+    //     // else {
+    //     //     setIcoStatusTitle(`Presale ended!`)
+    //     //     setIcoStatusDetail(`Presale ended at ${new Date(Number(endSaleDate * 1000)).toLocaleString()}`)
+    //     // }
+    // }, [timer, curTime, startSaleDate, endSaleDate])
+
     useEffect(() => {
-        if (props.totalSoldAmount >= global.totalVolume) {
-            setIcoStatusTitle(`We hit the softcap!`)
-            setIcoStatusDetail(`Let's go to the moon with ${global.PROJECT_TOKEN.name} now!`)
-        } else if (props.roundNumber < 1) {
-            setIcoStatusTitle(`Presale is not started yet!`)
-            setIcoStatusDetail(`Round 1 will start in ${displayRemainTime(timer)}.`)
-        } else if (props.roundNumber < 25) {
-            setIcoStatusTitle(`Now is Round ${props.roundNumber}. Please Buy!`)
-            setIcoStatusDetail(`Next Round will start in ${displayRemainTime(timer)}.`)
-        } else {
-            setIcoStatusTitle(`The Last Round is ended!`)
-            setIcoStatusDetail(`You can still buy! Let's go to the moon with ${global.PROJECT_TOKEN.name} now!`)
-        }
-    }, [timer, props.roundNumber, props.totalSoldAmount])
+      if (Number(endSaleDate) >= curTime && curTime >= Number(startSaleDate)) {
+        setIcoStatusTitle("Presale now!!!");
+        // setIcoStatusDetail(`Presale ends at ${new Date(Number(endSaleDate) * 1000).toLocaleString()}`);
+        setIcoStatusDetail(`Presale ends at 06/31/2024, 4:00:00 PM`);
+      } else if (curTime < Number(startSaleDate)) {
+        setIcoStatusTitle("Presale is not started yet!");
+        setIcoStatusDetail(`Presale starts at ${new Date(Number(startSaleDate * 1000)).toLocaleString()}.`);
+      }
+        // } else if (curTime >= Number(endSaleDate)) {
+      //   console.log("fly_curTime_error", curTime);
+      //   console.log("fly_endsaledate_error", Number(endSaleDate));
+      //   setIcoStatusTitle("Presale ended!");
+      //   setIcoStatusDetail(`Presale ended at ${new Date(Number(endSaleDate * 1000)).toLocaleString()}`);
+      // }
+    }, [timer, curTime, startSaleDate, endSaleDate]);
+    
 
 
     return (

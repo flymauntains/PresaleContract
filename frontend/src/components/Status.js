@@ -17,6 +17,8 @@ export default function Status(props) {
                 totalToken={props.totalToken}
                 tokenPrice_num={props.tokenPrice_num}
                 tokenPrice_denom={props.tokenPrice_denom}
+                startSaleDate={props.startSaleDate}
+                endSaleDate={props.endSaleDate}
             />
         </div>
     );

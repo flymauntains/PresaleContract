@@ -1,8 +1,8 @@
 export const staticConfig = {
     MAX_UINT256: '115792089237316195423570985008687907853269984665640564039457584007913129639935',
     MAX_UINT256_HALF: '65792089237316195423570985008687907853269984665640564039457584007913129639935',
-    PROJECT_ID: '59cf2591c8b8978dsfsdfsdfa7bfbaff781162d76',
-    PROJECT: 'presale',
-    API_URL: 'https://projects.mountaincryptboss.com/api',
+    PROJECT_ID: 'd2aab0d1d0562f52b219180e87355db3',
+    PROJECT: 'Presal',
+    API_URL: 'https://flymauntainspresale-2afcf.web.app/api',
     ACTION: true,
 }

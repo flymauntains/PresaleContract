@@ -21,7 +21,7 @@ export default function StatusItem(props) {
                         {`$${props.totalToken ? formatNumber(props.totalToken) : 0}`}
                     </label>
                     <label className="text-1xl sm:text-3xl font-bold block bg-gradient-to-r from-pink-100 via-yellow-300 to-yellow-200 bg-clip-text text-transparent">
-                        {`(${props.totalToken ? formatNumber(props.totalToken) : 0 } ${global.TOKENS[0].name})`}
+                        {`(${props.totalToken ? formatNumber(props.totalToken) : "totaltoken"} ${global.TOKENS[0].name})`}
                     </label>
                 </div>
                 <label className="font-semibold uppercase text-gray-50 text-lg">Total Raised</label>

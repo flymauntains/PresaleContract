@@ -132,7 +132,6 @@ export function useContractStatus(refresh) {
         ];
 
         const receiveData = await multicall({contracts: requests });
-        console.log("fly_receiveData", receiveData)
         const _data = await multicall({
           chainId: global.chain.id,
           contracts,
